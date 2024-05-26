@@ -8,14 +8,20 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class UserDaoImpl implements IUserDao{
+public class UserDaoImpl implements IUserDao {
 
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
     public List<User> getAllUsers() {
-        return sessionFactory.getCurrentSession().createQuery("from User", User.class).getResultList();
+        List<User> userList = sessionFactory.getCurrentSession().createQuery("from User", User.class).getResultList();
+
+        if (!userList.isEmpty()) {
+            return userList;
+        } else {
+            throw new RuntimeException("На данный момент пользователей в базе нет");
+        }
     }
 
     @Override
@@ -26,5 +32,21 @@ public class UserDaoImpl implements IUserDao{
     @Override
     public void deleteUser(User user) {
         sessionFactory.getCurrentSession().remove(user);
+    }
+
+    @Override
+    public User getUserById(long id) {
+        User user = sessionFactory.getCurrentSession().get(User.class, id);
+
+        if (user != null) {
+            return user;
+        } else {
+            throw new RuntimeException("Данного пользователя не существует");
+        }
+    }
+
+    @Override
+    public void updateUser(User user) {
+        sessionFactory.getCurrentSession().merge(user);
     }
 }
