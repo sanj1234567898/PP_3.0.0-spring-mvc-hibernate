@@ -1,18 +1,17 @@
 package com.project;
 
-import com.project.configuration.MyConfiguration;
+import com.project.configuration.JpaConfiguration;
 import com.project.service.IUserService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.project.models.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainApp {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context =
-                new AnnotationConfigApplicationContext(MyConfiguration.class);
+                new AnnotationConfigApplicationContext(JpaConfiguration.class);
 
         IUserService userService = context.getBean("userServiceBean", IUserService.class);
 
@@ -31,26 +30,26 @@ public class MainApp {
         userList.add(user4);
         userList.add(user5);
 
-        userList.forEach(userService::saveUser);
+        userList.forEach(userService::saveUser);*/
 
         //Получаем всех рользователей до изменений
         List<User> users = userService.getAllUsers();
         users.forEach(System.out::println);
         System.out.println("===========================");
 
-        User userFromBd = userService.getUserById(3);
+        /*User userFromBd = userService.getUserById(3);
 
         userFromBd.setSurname("Kozlow");
 
         userService.updateUser(userFromBd);*/
 
-        try {
+        /*try {
             User user = userService.getUserById(100);
             System.out.println(user);
 
         } catch (Exception e) {
             System.err.println(e.getMessage());
-        }
+        }*/
 
     }
 }
