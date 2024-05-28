@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .user-table th, .user-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .user-table th {
+            background-color: #f2f2f2;
+        }
+
+        .edit-btn, .delete-btn {
+            padding: 6px 12px;
+            margin-right: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .edit-btn {
+            background-color: #4CAF50;
+        }
+
+        .delete-btn {
+            background-color: #f44336;
+        }
+
+        .edit-btn:hover {
+            background-color: #45a049;
+        }
+
+        .delete-btn:hover {
+            background-color: #e53935;
+        }
+    </style>
+</head>
+<body>
+<h1 style="margin-bottom: 20px">Welcome to main panel</h1>
+
+<div class="container">
+    <h1>User Table</h1>
+    <table class="user-table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Age</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.name}">name</td>
+            <td th:text="${user.surname}">surname</td>
+            <td th:text="${user.age}">age</td>
+            <td>
+                <form class="edit-btn" th:action="@{/users/edit}" method="post">
+                    <input type="hidden" th:name="id" th:value="${user.id}">
+                    <button type="submit" >Edit</button>
+                </form>
+                <form class="delete-btn" th:action="@{/users/delete}" method="post">
+                    <input type="hidden" th:name="id" th:value="${user.id}" />
+                    <button type="submit" >Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/users/create"
+       class="edit-btn">Create user</a>
+</div>
+</body>
+</html>

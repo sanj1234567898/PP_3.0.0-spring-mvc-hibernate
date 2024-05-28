@@ -31,6 +31,10 @@ public class UserDaoImpl implements IUserDao {
 
     @Override
     public void deleteUser(User user) {
+        // Присоединить объект к текущему контексту
+        if (!entityManager.contains(user)) {
+            user = entityManager.merge(user);
+        }
         entityManager.remove(user);
     }
 

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form th:method="POST" th:action="@{/users}" th:object="${user}" style="display: flex; flex-direction: column; width: 500px; margin-bottom: 10px">
+        <input type="hidden" th:field="*{id}">
+        <label for="name">Name</label>
+        <input name="name" id="name" type="text" th:field="*{name}">
+        <label for="surname">Surname</label>
+        <input name="surname" id="surname" type="text" th:field="*{surname}">
+        <label for="age">Age</label>
+        <input name="age" id="age" type="text" th:field="*{age}">
+
+        <input type="submit" value="Save">
+    </form>
+</body>
+</html>
